@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 //import java.io.PrintStream;
@@ -450,29 +449,6 @@ public class Tetris extends JPanel {
 	
 	public static void main(String[] args) throws IOException 
 	{
-		//Get scores from the high score file	
-		String[] storeScores = new String[10];
-		
-		//Read data from the file and transfer it into an array for storage
-		inputFile = new BufferedReader(new FileReader("highscores.txt"));
-		
-		
-			
-		String line = inputFile.readLine();
-			
-		int lineNum = 0;
-			
-		//Copies high-score information from file and into an array
-		while(line != null) 
-		{		
-			storeScores[lineNum] = line;
-			line = inputFile.readLine();
-			lineNum++;
-		}
-
-		
-		lowestScore = Integer.parseInt(storeScores[9]);
-		
 		
 		//JFrame Initialization
 		f = new JFrame("Tetris");
@@ -649,75 +625,7 @@ public class Tetris extends JPanel {
 				game.dropDown();
 			}
 			
-			//GAME OVER CODE
-			//check to see if the player scored higher than the lowest scoring entry
-			if(game.score > lowestScore) 
-			{
-				int currentScore = 0;
-				int i = 9;
-				
-				while (game.added == false) 
-				{
-					
-					currentScore = Integer.parseInt(storeScores[i]);
-					
-					//System.out.println("current Score: "+ currentScore);
-					
-					//if player's score is the new highest score
-					if(i == 1) 
-					{
-						game.added = true;
-						storeScores[i] = Integer.toString(game.score);
-						storeScores[i - 1] = "Player";
-						
-					
-					//if player's score belongs in the middle of the scores
-					}
-					
-					if(game.score <= currentScore) 
-					{
-						//System.out.println("Found where it belongs");
-						game.added = true;
-						storeScores[i + 2] = Integer.toString(game.score);
-						storeScores[i + 1] = "Player";
-						
-						//System.out.println("Added: " + Arrays.toString(storeScores));
-						
-						
-					//otherwise, shift the array down one
-					}
-					
-					if(game.score > currentScore && game.added == false) 
-					{
-						//System.out.println("Too small, shift down: ");
-						storeScores[i] = storeScores[i - 2];
-						storeScores[i - 1] = storeScores[i - 3];
-						
-						//System.out.println("Updated: " + Arrays.toString(storeScores));
-						
-					}
-					
-					
-					i = i - 2;
-					
-				}
-				
-				
-				lowestScore = Integer.parseInt(storeScores[9]);
-
-			}
-			
-			endGameString = "<html><pre>";
-			
-			for(int i = 0; i < 10; i = i + 2) 
-			{
-				endGameString = endGameString + storeScores[i];
-				
-				endGameString = endGameString + "&#9;";
-						
-				endGameString = endGameString + storeScores[i + 1] + "<BR>";
-			}
-			
+			endGameString = "<html><pre>";			
 			
 			endGameString = endGameString + "</pre></html>";
 			
@@ -739,24 +647,6 @@ public class Tetris extends JPanel {
 		//Exit game code
 		endGame.dispose();
 		f.dispose();
-		inputFile.close();
-		
-		//write new high scores to file
-		writeFile = new FileWriter("highscores.txt");
-		
-		for(int i = 0; i < storeScores.length; i++) 
-		{
-			if (i < storeScores.length - 1) 
-			{
-				writeFile.write(storeScores[i] + "\n");
-			} else 
-			{
-				writeFile.write(storeScores[i]);
-			}
-			
-			
-		}
-		writeFile.close();
 		
 	}
 	

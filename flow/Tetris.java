@@ -165,7 +165,7 @@ public class Tetris extends JPanel {
 		added = false;
 		endGame.setVisible(false);
 		gameOver = false;
-		timeDec = 100;
+		timeDec = 50;
 		// sleepTime = 1000;
 		consecutiveObjects = 0;
 		storedPiece = -1;
