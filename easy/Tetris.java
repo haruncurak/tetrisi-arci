@@ -161,7 +161,7 @@ public class Tetris extends JPanel {
 		gameOver = false;
 		phase = 1;
 		timeDec = 200;
-		sleepTime = 1000;
+		sleepTime = 2250;
 		storedPiece = -1;
 		score = 0;
 		
