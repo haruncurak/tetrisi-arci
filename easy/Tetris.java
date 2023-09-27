@@ -18,12 +18,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -33,10 +30,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
-
-enum Difficulty {
-	    BOREDOM, ADAPTIVE, OVERLOAD
-}
 
 public class Tetris extends JPanel {
 
@@ -130,8 +123,6 @@ public class Tetris extends JPanel {
 	private static JButton exit;
 	
 	private static BufferedReader inputFile;
-	private static FileWriter writeFile;
-	private static int lowestScore;
 	
 	private static int sleepTime = 2250;
 	
@@ -269,6 +260,7 @@ public class Tetris extends JPanel {
 		} else {
 			fixToWell();
 		}	
+		score += 1;
 		
 		repaint();
 	}
@@ -348,21 +340,6 @@ public class Tetris extends JPanel {
 			break;
 		}
 		
-		//CODE FOR DIFFICULTY UPDATING
-		//decrements length of time the game sleeps between dropdowns every 1000 points earned	
-		// if(score >= 1000 * phase) 
-		// {
-		// 	//prevents timeDec from going to zero and breaking game - if the current tick time is
-		// 	//less than or equal to twice the timeDec value, timeDec is divided by 2
-		// 	//Should scale infinitely
-		// 	if(sleepTime <= (2 * timeDec)) 
-		// 	{
-		// 		timeDec /= 2;
-		// 	}
-			
-		// 	sleepTime -= timeDec;
-		// 	phase++;
-		// }
 		
 	}
 	
@@ -446,29 +423,7 @@ public class Tetris extends JPanel {
 	
 	public static void main(String[] args) throws IOException 
 	{
-		//Get scores from the high score file	
-		String[] storeScores = new String[10];
-		
-		//Read data from the file and transfer it into an array for storage
-		inputFile = new BufferedReader(new FileReader("highscores.txt"));
-		
-		
-			
-		String line = inputFile.readLine();
-			
-		int lineNum = 0;
-			
-		//Copies high-score information from file and into an array
-		while(line != null) 
-		{		
-			storeScores[lineNum] = line;
-			line = inputFile.readLine();
-			lineNum++;
-		}
 
-		
-		
-		
 		//JFrame Initialization
 		f = new JFrame("Tetris");
 		
@@ -518,11 +473,14 @@ public class Tetris extends JPanel {
 		newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Save the current score before restarting the game.
 				try (FileWriter scoresFileWriter = new FileWriter("scores.txt", true)) {
 					scoresFileWriter.write(playerName + ": " + game.score + "\n");
 				} catch (IOException ioException) {
 					ioException.printStackTrace();
 				}
+				
+				// Now restart the game.
 				game.restart();
 				endGame.setVisible(false); // Hide the endGame frame after restarting
 			}
@@ -562,7 +520,7 @@ public class Tetris extends JPanel {
 					//Note: Drop down has been switched to the down arrow key.
 					// case KeyEvent.VK_DOWN:
 					// 	game.dropDown();
-					// 	game.score += 1;
+						// game.score += 1;
 					// 	break;
 					case KeyEvent.VK_LEFT:
 						game.move(-1);
@@ -644,16 +602,6 @@ public class Tetris extends JPanel {
 			
 
 			endGameString = "<html><pre>";
-			
-			for(int i = 0; i < 10; i = i + 2) 
-			{
-				endGameString = endGameString + storeScores[i];
-				
-				endGameString = endGameString + "&#9;";
-						
-				endGameString = endGameString + storeScores[i + 1] + "<BR>";
-			}
-			
 			
 			endGameString = endGameString + "</pre></html>";
 			
