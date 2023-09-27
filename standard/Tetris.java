@@ -329,16 +329,9 @@ public class Tetris extends JPanel {
 		// CODE FOR DIFFICULTY UPDATING
 		// decrements length of time the game sleeps between dropdowns every 500 points
 		// earned
-		if (score >= 500 * phase) {
-			// prevents timeDec from going to zero and breaking game - if the current tick
-			// time is
-			// less than or equal to twice the timeDec value, timeDec is divided by 2
-			// Should scale infinitely
-			if (sleepTime <= (2 * timeDec)) {
-				timeDec /= 2;
-			}
-
-			sleepTime -= timeDec;
+		if (score >= 1000 * phase) {
+			timeDec = 50;
+			sleepTime = Math.max(sleepTime - timeDec, 150);
 			phase++;
 		}
 
