@@ -440,7 +440,7 @@ public class Tetris extends JPanel {
 		//Display the currently stored piece
 		g.setColor(Color.WHITE);
 		storedPieceName = getPieceName(storedPiece);
-		g.drawString("Stored: " + storedPieceName, 220, 35);
+		// g.drawString("Stored: " + storedPieceName, 220, 35);
 		
 		//Draw the currently falling piece
 		drawPiece(g);

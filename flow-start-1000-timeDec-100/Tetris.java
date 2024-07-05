@@ -433,7 +433,7 @@ public class Tetris extends JPanel {
 		
 		// Display the score
 		g.setColor(Color.WHITE);
-		// g.drawString("Score: " + score, 20, 55);
+		g.drawString("Score: " + score, 20, 55);
 
 	//		g.drawString("Current sleep time: " + sleepTime, 60, 55);
 
