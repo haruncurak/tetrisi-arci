@@ -433,7 +433,7 @@ public class Tetris extends JPanel {
 		
 		// Display the score
 		g.setColor(Color.WHITE);
-		g.drawString("Score: " + score, 20, 55);
+		// g.drawString("Score: " + score, 20, 55);
 
 	//		g.drawString("Current sleep time: " + sleepTime, 60, 55);
 
@@ -443,7 +443,7 @@ public class Tetris extends JPanel {
 		//Display the currently stored piece
 		g.setColor(Color.WHITE);
 		storedPieceName = getPieceName(storedPiece);
-		g.drawString("Stored: " + storedPieceName, 220, 35);
+		// g.drawString("Stored: " + storedPieceName, 220, 35);
 		
 		//Draw the currently falling piece
 		drawPiece(g);
